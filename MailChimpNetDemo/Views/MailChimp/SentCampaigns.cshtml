@@ -1,0 +1,29 @@
+﻿@model IEnumerable<MailChimp.Net.Models.Campaign>
+@{
+    ViewBag.Title = "Sent Campaigns";
+}
+
+<h2>Sent Campaigns</h2>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Sent Date</th>
+            <th>Emails Sent</th>
+            <th>View</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var campaign in Model)
+        {
+            <tr>
+                <td>@campaign.Id</td>
+                <td>@campaign.SendTime</td>
+                <td>@campaign.EmailsSent</td>
+                <td><a href="@campaign.ArchiveUrl" target="_viewCampaign">View &raquo;</a></td>
+            </tr>
+        }
+    </tbody>
+</table> 
+
