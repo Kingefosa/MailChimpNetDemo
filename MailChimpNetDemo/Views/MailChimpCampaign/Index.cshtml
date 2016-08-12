@@ -1,15 +1,15 @@
 ﻿@model IEnumerable<MailChimp.Net.Models.Campaign>
 @{
-    ViewBag.Title = "Sent Campaigns";
+    ViewBag.Title = $"Campaigns for list ID {ViewBag.ListId}";
 }
 
-<h2>Sent Campaigns</h2>
+<h2>Campaigns for List ID @ViewBag.ListId</h2>
 
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>ID</th>
-            <th>Sent Date</th>
+            <th>Title</th>
             <th>Emails Sent</th>
             <th>View</th>
         </tr>
@@ -19,7 +19,7 @@
         {
             <tr>
                 <td>@campaign.Id</td>
-                <td>@campaign.SendTime</td>
+                <td>@campaign.Settings.Title</td>
                 <td>@campaign.EmailsSent</td>
                 <td><a href="@campaign.ArchiveUrl" target="_viewCampaign">View &raquo;</a></td>
             </tr>

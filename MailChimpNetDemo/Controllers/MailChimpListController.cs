@@ -1,30 +1,27 @@
-﻿using System;
-using System.Web.Mvc;
-using MailChimp.Net;
-using System.Threading.Tasks;
+﻿using MailChimp.Net;
 using MailChimp.Net.Core;
-using System.Net;
 using MailChimp.Net.Models;
+using System;
+using System.Net;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace MailChimpNetDemo.Controllers
 {
-    public class MailChimpController : Controller
+    public class MailChimpListController : Controller
     {
         private static MailChimpManager Manager = new MailChimpManager();
 
-        public async Task<ActionResult> SentCampaigns()
+        public async Task<ActionResult> Index()
         {
-            var options = new CampaignRequest
+            var options = new ListRequest
             {
-                ListId = "f809a0eba9",
-                Status = CampaignStatus.Sent,
-                SortOrder = CampaignSortOrder.DESC,
                 Limit = 10
             };
 
             try
             {
-                var model = await Manager.Campaigns.GetAllAsync(options);
+                var model = await Manager.Lists.GetAllAsync(options);
                 return View(model);
             }
             catch (MailChimpException mce)
@@ -37,7 +34,7 @@ namespace MailChimpNetDemo.Controllers
             }
         }
 
-        public async Task<ActionResult> CreateList()
+        public async Task<ActionResult> Create()
         {
             var list = new List
             {
@@ -65,7 +62,7 @@ namespace MailChimpNetDemo.Controllers
             try
             {
                 var model = await Manager.Lists.AddOrUpdateAsync(list);
-                return View(model);
+                return RedirectToAction("Index");
             }
             catch (MailChimpException mce)
             {
@@ -77,7 +74,7 @@ namespace MailChimpNetDemo.Controllers
             }
         }
 
-        public async Task<ActionResult> UpdateList()
+        public async Task<ActionResult> Update()
         {
             var list = new List
             {
@@ -106,7 +103,7 @@ namespace MailChimpNetDemo.Controllers
             try
             {
                 var model = await Manager.Lists.AddOrUpdateAsync(list);
-                return View(model);
+                return RedirectToAction("Detail");
             }
             catch (MailChimpException mce)
             {
@@ -118,29 +115,7 @@ namespace MailChimpNetDemo.Controllers
             }
         }
 
-        public async Task<ActionResult> GetLists()
-        {
-            var options = new ListRequest
-            {
-                Limit = 10
-            };
-
-            try
-            {
-                var model = await Manager.Lists.GetAllAsync(options);
-                return View(model);
-            }
-            catch (MailChimpException mce)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadGateway, mce.Message);
-            }
-            catch (Exception ex)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable, ex.Message);
-            }
-        }
-
-        public async Task<ActionResult> GetList()
+        public async Task<ActionResult> Detail()
         {
             try
             {
@@ -157,12 +132,12 @@ namespace MailChimpNetDemo.Controllers
             }
         }
 
-        public async Task<ActionResult> DeleteList()
+        public async Task<ActionResult> Delete()
         {
             try
             {
                 await Manager.Lists.DeleteAsync("f809a0eba9");
-                return RedirectToAction("GetLists");
+                return RedirectToAction("Detail");
             }
             catch (MailChimpException mce)
             {

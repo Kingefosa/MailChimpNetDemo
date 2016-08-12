@@ -1,0 +1,29 @@
+﻿@model MailChimp.Net.Models.Campaign
+@{
+    ViewBag.Title = $"Detail for campaign ID {Model.Id}";
+}
+
+<h2>Detail for Campaign ID @Model.Id</h2>
+
+<dl class="row">
+    <dt class="col-md-3 text-right">Title</dt>
+    <dd class="col-md-9">@Model.Settings.Title</dd>
+    <dt class="col-md-3 text-right">Content Type</dt>
+    <dd class="col-md-9">@Model.ContentType</dd>
+    <dt class="col-md-3 text-right">Create Time</dt>
+    <dd class="col-md-9">@Model.CreateTime.ToString("s")</dd>
+    <dt class="col-md-3 text-right">Status</dt>
+    <dd class="col-md-9">@Model.Status</dd>
+    <dt class="col-md-3 text-right">Delivery Status</dt>
+    <dd class="col-md-9">
+    @if (Model.DeliveryStatus.Status != null) { 
+        @Model.DeliveryStatus.Status 
+    }
+    else
+    { 
+        @Html.Raw("NULL") 
+    }
+    </dd>
+    <dt class="col-md-3 text-right">Type</dt>
+    <dd class="col-md-9">@Model.Type</dd>
+</dl>
