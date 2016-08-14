@@ -59,7 +59,7 @@ namespace MailChimpNetDemo.Controllers
                     SubjectLine = $"Campaign created by program at {DateTime.UtcNow.ToString("s")}",
                     Title = $"Dynamic campaign {Guid.NewGuid()}",
                     FromName = "Doug Vanderweide",
-                    ReplyTo = "doug@dougv.com"
+                    ReplyTo = "mailchimp@dougv.com"
                 },
                 Tracking = new Tracking
                 {
@@ -118,12 +118,37 @@ namespace MailChimpNetDemo.Controllers
             }
         }
 
-        public async Task<ActionResult> SetCampaignContentRaw()
+        public async Task<ActionResult> SetContentRaw()
         {
             var content = new ContentRequest
             {
                 PlainText = "Hello world! I am testing Doug Vanderweide's MailChimp.NET.V3 demo, at https://www.dougv.com",
                 Html = "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>title</title></head><body><p>Hello world! I am testing Doug Vanderweide's MailChimp.NET.V3 demo, at <a href=\"https://www.dougv.com\">https://www.dougv.com</a></body></html>"
+            };
+
+            try
+            {
+                await Manager.Content.AddOrUpdateAsync("d4688e21b2", content);
+                return RedirectToAction("Detail");
+            }
+            catch (MailChimpException mce)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadGateway, mce.Message);
+            }
+            catch (Exception ex)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.ServiceUnavailable, ex.Message);
+            }
+        }
+
+        public async Task<ActionResult> SetContentTemplate()
+        {
+            var content = new ContentRequest
+            {
+                Template = new Template
+                {
+                    Id = 123456
+                }
             };
 
             try
@@ -147,7 +172,7 @@ namespace MailChimpNetDemo.Controllers
             {
                 await Manager.Campaigns.TestAsync("d4688e21b2", new CampaignTestRequest
                 {
-                    Emails = new string[] { "dougvanderweide@gmail.com", "doug@dougv.com" },
+                    Emails = new string[] { "foo@bar.com", "bar@foo.com" },
                     EmailType = "html"
                 });
 

@@ -51,10 +51,10 @@ namespace MailChimpNetDemo.Controllers
                 PermissionReminder = "You were added to this list as part of an automated process that also created this list.",
                 CampaignDefaults = new CampaignDefaults
                 {
-                    FromEmail = "me@myserver.com",
-                    FromName = "John Doe",
+                    FromEmail = "mailchimp@dougv.com",
+                    FromName = "Doug Vanderweide",
                     Subject = "Email message from dynamically created List",
-                    Language = "en/us"
+                    Language = "en-us"
                 },
                 EmailTypeOption = true
             };
@@ -93,9 +93,7 @@ namespace MailChimpNetDemo.Controllers
                 CampaignDefaults = new CampaignDefaults
                 {
                     FromEmail = "you@yourserver.com",
-                    FromName = "Jane Smith",
-                    Subject = "Email message from dynamically created List",
-                    Language = "en-us"
+                    FromName = "Jane Smith"
                 },
                 EmailTypeOption = true
             };

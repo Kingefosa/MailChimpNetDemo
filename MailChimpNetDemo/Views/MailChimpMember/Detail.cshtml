@@ -5,7 +5,21 @@
 
 <h2>Member details for @Model.EmailAddress</h2>
 
-<dl>
-    <dt></dt>
-    <dd></dd>
+<dl class="row">
+    <dt class="col-md-3 text-right">ID</dt>
+    <dd class="col-md-9">@Model.Id</dd>
+    <dt class="col-md-3 text-right">Unique Email Id</dt>
+    <dd class="col-md-9">@Model.UniqueEmailId</dd>
+    <dt class="col-md-3 text-right">First Name</dt>
+    <dd class="col-md-9">@Model.MergeFields["FNAME"]</dd>
+    <dt class="col-md-3 text-right">Last Name</dt>
+    <dd class="col-md-9">@Model.MergeFields["LNAME"]</dd>
+    <dt class="col-md-3 text-right">Status</dt>
+    <dd class="col-md-9">@Model.Status</dd>
+    <dt class="col-md-3 text-right">Signup Date</dt>
+    <dd class="col-md-9">@Model.TimestampSignup</dd>
+    <dt class="col-md-3 text-right">Email Type</dt>
+    <dd class="col-md-9">@Model.EmailType</dd>
+    <dt class="col-md-3 text-right">Last Changed</dt>
+    <dd class="col-md-9">@Model.LastChanged</dd>
 </dl>
